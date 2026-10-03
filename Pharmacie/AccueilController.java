@@ -1,37 +1,31 @@
 package Pharmacie;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AccueilController {
 
     @FXML
-    public void openMedicament() throws Exception {
-        Stage stage = new Stage();
-        stage.setScene(new Scene(
-                FXMLLoader.load(getClass().getResource("/view/Medicament.fxml")),
-                900, 620
-        ));
-        stage.setTitle("Gestion des Médicaments");
-        stage.setMinWidth(760);
-        stage.setMinHeight(480);
-        stage.centerOnScreen();
-        stage.show();
+    public void openMedicament(ActionEvent event) throws Exception {
+        naviguerVers(event, "/view/Medicament.fxml", "Gestion des Médicaments", 900, 620);
     }
 
     @FXML
-    public void openClient() throws Exception {
-        Stage stage = new Stage();
-        stage.setScene(new Scene(
-                FXMLLoader.load(getClass().getResource("/view/Client.fxml")),
-                900, 620
-        ));
-        stage.setTitle("Gestion des Clients Fidèles");
-        stage.setMinWidth(760);
-        stage.setMinHeight(480);
+    public void openClient(ActionEvent event) throws Exception {
+        naviguerVers(event, "/view/Client.fxml", "Gestion des Clients Fidèles", 900, 620);
+    }
+
+    private void naviguerVers(ActionEvent event, String fxml, String titre, double largeur, double hauteur) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource(fxml));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, largeur, hauteur));
+        stage.setTitle(titre);
+        stage.setResizable(false);
         stage.centerOnScreen();
-        stage.show();
     }
 }

@@ -154,6 +154,72 @@
     -fx-text-fill: #f6f3ec;
 }
 
+/* ---------- Boîtes de dialogue (succès / erreur) ---------- */
+.app-alert {
+    -fx-background-color: #f6f3ec;
+    -fx-border-color: #cdc6b1;
+    -fx-border-width: 1;
+    -fx-padding: 0;
+    -fx-min-width: 380;
+}
+
+.app-alert > .header-panel {
+    -fx-background-color: #1c2e27;
+    -fx-padding: 18 22;
+}
+
+.app-alert.alert-error > .header-panel {
+    -fx-background-color: #7c2f22;
+}
+
+.app-alert > .header-panel > .label {
+    -fx-font-family: "Georgia", "Cambria", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #f6f3ec;
+}
+
+.app-alert > .content.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2a2820;
+    -fx-padding: 22 22 14 22;
+    -fx-wrap-text: true;
+}
+
+.app-alert > .button-bar {
+    -fx-background-color: #ece7d9;
+    -fx-padding: 12 18;
+    -fx-border-color: #d5cdb6 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.app-alert > .button-bar .button:default {
+    -fx-background-color: #2f5e4e;
+    -fx-text-fill: #f6f3ec;
+    -fx-border-color: #2f5e4e;
+}
+
+.app-alert > .button-bar .button:default:hover {
+    -fx-background-color: #264c40;
+}
+
+/* Bouton retour (haut des pages de gestion) */
+.back-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #5c6b61;
+    -fx-padding: 6 10;
+    -fx-font-size: 12px;
+}
+
+.back-button:hover {
+    -fx-text-fill: #1c2e27;
+    -fx-background-color: #ece7d9;
+}
+
+.back-button:pressed {
+    -fx-background-color: #ddd6c2;
+}
+
 /* Boutons de navigation (écran d'accueil) */
 .nav-button {
     -fx-padding: 14 28;

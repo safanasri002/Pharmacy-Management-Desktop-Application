@@ -13,7 +13,12 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Pharmacie.ClientController">
 
-    <Label text="Gestion des Clients Fidèles" styleClass="subtitle"/>
+    <HBox spacing="14" alignment="CENTER_LEFT">
+        <Button text="← Retour" styleClass="back-button" onAction="#retour" cancelButton="true"/>
+        <Label text="Gestion des Clients Fidèles" styleClass="subtitle"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblCount" styleClass="muted"/>
+    </HBox>
     <Region styleClass="rule"/>
 
     <GridPane hgap="20" vgap="12" styleClass="form-fields">
@@ -42,7 +47,7 @@
     </GridPane>
 
     <HBox spacing="10" styleClass="toolbar">
-        <Button text="Ajouter" styleClass="primary" onAction="#ajouter"/>
+        <Button text="Ajouter" styleClass="primary" onAction="#ajouter" defaultButton="true"/>
         <Button text="Supprimer" styleClass="danger" onAction="#supprimer"/>
         <Button text="Rechercher" onAction="#rechercher"/>
     </HBox>

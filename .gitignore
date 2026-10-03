@@ -6,5 +6,8 @@ bin/
 *.iml
 .settings/
 
+# Identifiants locaux (ne jamais committer)
+.env
+
 # Divers
 *.log

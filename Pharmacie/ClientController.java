@@ -1,9 +1,16 @@
 package Pharmacie;
 
+import java.util.List;
 import javafx.collections.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class ClientController {
 
@@ -15,6 +22,7 @@ public class ClientController {
     @FXML private TableColumn<ClientFidele, String> colNom;
     @FXML private TableColumn<ClientFidele, String> colPrenom;
     @FXML private TableColumn<ClientFidele, Double> colCredit;
+    @FXML private Label lblCount;
 
     
     private final GestionClient gc = new GestionClient();
@@ -30,6 +38,15 @@ public class ClientController {
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
         colCredit.setCellValueFactory(new PropertyValueFactory<>("credit"));
+
+        Label vide = new Label("Aucun client enregistré");
+        vide.getStyleClass().add("muted");
+        tableClient.setPlaceholder(vide);
+
+        // clic sur une ligne : le formulaire se remplit pour modifier ou supprimer
+        tableClient.getSelectionModel().selectedItemProperty().addListener((obs, ancien, sel) -> {
+            if (sel != null) remplirFormulaire(sel);
+        });
         refresh(); }
 
     
@@ -60,22 +77,38 @@ public class ClientController {
                 txtPrenom.getText(),
                 Double.parseDouble(txtCredit.getText())
             );
-            gc.ajouterClient(c);
-            refresh();
+            if (gc.ajouterClient(c)) {
+                AlertUtil.info("Client « " + c.getPrenom() + " " + c.getNom() + " » enregistré.");
+                viderFormulaire();
+                refresh();
+            } else {
+                AlertUtil.erreur("Impossible d'enregistrer le client (CIN déjà existant ?).");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             AlertUtil.erreur("Erreur de saisie client");
         }
     }
 
-    
+
     @FXML
     public void supprimer() {
         try {
-            gc.supprimerClient(Integer.parseInt(txtCin.getText()));
-            refresh();
-        } catch (Exception e) {
-            AlertUtil.erreur("Client inexistant");
+            int cin = Integer.parseInt(txtCin.getText());
+            ClientFidele c = gc.rechercherClient(cin);
+            if (c == null) {
+                AlertUtil.erreur("Client inexistant");
+                return;
+            }
+            if (gc.supprimerClient(cin)) {
+                AlertUtil.info("Client « " + c.getPrenom() + " " + c.getNom() + " » supprimé.");
+                viderFormulaire();
+                refresh();
+            } else {
+                AlertUtil.erreur("Impossible de supprimer le client (voir la console).");
+            }
+        } catch (NumberFormatException e) {
+            AlertUtil.erreur("Veuillez saisir un CIN valide");
         }
     }
     
@@ -121,9 +154,34 @@ public class ClientController {
     }*/
     
     private void refresh() {
-        tableClient.setItems(
-            FXCollections.observableArrayList(gc.getAllClient())
-        );
+        List<ClientFidele> liste = gc.getAllClient();
+        tableClient.setItems(FXCollections.observableArrayList(liste));
+        lblCount.setText(liste.size() + (liste.size() > 1 ? " clients" : " client"));
+    }
+
+    private void remplirFormulaire(ClientFidele c) {
+        txtCin.setText(String.valueOf(c.getCin()));
+        txtNom.setText(c.getNom());
+        txtPrenom.setText(c.getPrenom());
+        txtCredit.setText(String.valueOf(c.getCredit()));
+    }
+
+    private void viderFormulaire() {
+        txtCin.clear();
+        txtNom.clear();
+        txtPrenom.clear();
+        txtCredit.clear();
+        tableClient.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void retour(ActionEvent event) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Accueil.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, 520, 420));
+        stage.setTitle("Gestion de Pharmacie");
+        stage.setResizable(false);
+        stage.centerOnScreen();
     }
 
 }
