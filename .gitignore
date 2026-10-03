@@ -1,0 +1,10 @@
+# Sortie de compilation Eclipse
+bin/
+
+# Fichiers IDE
+.idea/
+*.iml
+.settings/
+
+# Divers
+*.log

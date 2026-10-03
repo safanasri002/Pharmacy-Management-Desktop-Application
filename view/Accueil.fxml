@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane styleClass="page, flush"
+            stylesheets="@style.css"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Pharmacie.AccueilController">
+
+    <top>
+        <VBox alignment="CENTER" spacing="6" styleClass="hero">
+            <padding>
+                <Insets top="40" right="24" bottom="34" left="24"/>
+            </padding>
+            <Label text="Officine" styleClass="title"/>
+            <Label text="Système de gestion de pharmacie" styleClass="hero-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="12">
+            <Button text="Gestion des Médicaments"
+                    styleClass="primary, nav-button"
+                    prefWidth="280"
+                    onAction="#openMedicament"/>
+
+            <Button text="Gestion des Clients Fidèles"
+                    styleClass="primary, nav-button"
+                    prefWidth="280"
+                    onAction="#openClient"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label text="TP JavaFX — Gestion de Pharmacie" styleClass="muted" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="8" bottom="18"/>
+            </padding>
+        </Label>
+    </bottom>
+
+</BorderPane>

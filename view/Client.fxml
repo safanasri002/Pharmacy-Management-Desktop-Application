@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="16"
+      styleClass="page"
+      stylesheets="@style.css"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Pharmacie.ClientController">
+
+    <Label text="Gestion des Clients Fidèles" styleClass="subtitle"/>
+    <Region styleClass="rule"/>
+
+    <GridPane hgap="20" vgap="12" styleClass="form-fields">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+
+        <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Label text="CIN" styleClass="field-label"/>
+            <TextField fx:id="txtCin" promptText="Numéro CIN"/>
+        </VBox>
+        <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Label text="Nom" styleClass="field-label"/>
+            <TextField fx:id="txtNom" promptText="Nom du client"/>
+        </VBox>
+
+        <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <Label text="Prénom" styleClass="field-label"/>
+            <TextField fx:id="txtPrenom" promptText="Prénom du client"/>
+        </VBox>
+        <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <Label text="Solde fidélité" styleClass="field-label"/>
+            <TextField fx:id="txtCredit" promptText="0.00"/>
+        </VBox>
+    </GridPane>
+
+    <HBox spacing="10" styleClass="toolbar">
+        <Button text="Ajouter" styleClass="primary" onAction="#ajouter"/>
+        <Button text="Supprimer" styleClass="danger" onAction="#supprimer"/>
+        <Button text="Rechercher" onAction="#rechercher"/>
+    </HBox>
+
+    <TableView fx:id="tableClient" VBox.vgrow="ALWAYS">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="colCin" text="CIN"/>
+            <TableColumn fx:id="colNom" text="Nom"/>
+            <TableColumn fx:id="colPrenom" text="Prénom"/>
+            <TableColumn fx:id="colCredit" text="Crédit"/>
+        </columns>
+    </TableView>
+
+</VBox>

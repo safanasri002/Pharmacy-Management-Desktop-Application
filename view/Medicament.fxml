@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="16"
+      styleClass="page"
+      stylesheets="@style.css"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Pharmacie.MedicamentController">
+
+    <Label text="Gestion des Médicaments" styleClass="subtitle"/>
+    <Region styleClass="rule"/>
+
+    <GridPane hgap="20" vgap="12" styleClass="form-fields">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+
+        <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Label text="Code" styleClass="field-label"/>
+            <TextField fx:id="txtCode" promptText="Code du médicament"/>
+        </VBox>
+        <VBox spacing="4" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Label text="Nom" styleClass="field-label"/>
+            <TextField fx:id="txtNom" promptText="Nom du médicament"/>
+        </VBox>
+
+        <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <Label text="Catégorie" styleClass="field-label"/>
+            <TextField fx:id="txtCategorie" promptText="Ex. Antalgique"/>
+        </VBox>
+        <VBox spacing="4" GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <Label text="Type" styleClass="field-label"/>
+            <TextField fx:id="txtType" promptText="Chimique / Homéopathique"/>
+        </VBox>
+
+        <VBox spacing="4" GridPane.rowIndex="2" GridPane.columnIndex="0">
+            <Label text="Prix (DH)" styleClass="field-label"/>
+            <TextField fx:id="txtPrix" promptText="0.00"/>
+        </VBox>
+        <VBox spacing="4" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <Label text="Quantité" styleClass="field-label"/>
+            <TextField fx:id="txtQuantite" promptText="0"/>
+        </VBox>
+    </GridPane>
+
+    <HBox spacing="10" styleClass="toolbar">
+        <Button text="Ajouter" styleClass="primary" onAction="#ajouter"/>
+        <Button text="Supprimer" styleClass="danger" onAction="#supprimer"/>
+        <Button text="Rechercher" onAction="#rechercher"/>
+    </HBox>
+
+    <TableView fx:id="tableMedicament" VBox.vgrow="ALWAYS">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="colCode" text="Code"/>
+            <TableColumn fx:id="colNom" text="Nom"/>
+            <TableColumn fx:id="colPrix" text="Prix"/>
+            <TableColumn fx:id="colQuantite" text="Quantité"/>
+        </columns>
+    </TableView>
+
+</VBox>
